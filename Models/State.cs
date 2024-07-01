@@ -11,15 +11,10 @@ namespace WebAPI1.Models
 {
     using System;
     using System.Collections.Generic;
-
-    //    public partial class tblUser
-    //    {
-    //        public int Id { get; set; }
-    //        public string Name { get; set; }
-    //        public string email { get; set; }
-    //        public Nullable<int> cityId { get; set; }
-    //        public string imgpath { get; set; }
-    //    }
-    //}
-
+    
+    public partial class State
+    {
+        public int StateId { get; set; }
+        public string StateName { get; set; }
+    }
 }

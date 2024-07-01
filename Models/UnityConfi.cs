@@ -1,28 +1,18 @@
-using BLL.UserController;
-using DAL.UserController;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using System.Web.Routing;
+using BLL.UserController;
+using DAL.UserController;
 using Unity;
 using Unity.AspNet.WebApi;
-using WebAPI1.Models;
 
-namespace WebAPI1
+namespace WebAPI1.Models
 {
-    
-    public class WebApiApplication : System.Web.HttpApplication
+    public static class UnityConfig
     {
-        
-        protected void Application_Start()
-        {
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            RegisterUnityContainer();
-        }
-
-        private void RegisterUnityContainer()
+        public static void RegisterComponent()
         {
             var container = new UnityContainer();
 
@@ -31,5 +21,6 @@ namespace WebAPI1
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
+
     }
 }

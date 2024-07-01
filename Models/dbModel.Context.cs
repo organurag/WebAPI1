@@ -12,19 +12,21 @@ namespace WebAPI1.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class DBWEBAPIEntities : DbContext
     {
         public DBWEBAPIEntities()
             : base("name=DBWEBAPIEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
-        public virtual DbSet<tblUser> tblUsers { get; set; }
+
+        //public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<State> States { get; set; }
     }
 }

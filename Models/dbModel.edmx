@@ -5,15 +5,34 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DBWEBAPIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="100" />
+          <Property Name="StateId" Type="int" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="StateName" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="tblUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="cityId" Type="int" />
+          <Property Name="imgpath" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="DBWEBAPIModelStoreContainer">
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -26,11 +45,30 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cityId" Type="Int32" />
+          <Property Name="imgpath" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="DBWEBAPIEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <EntitySet Name="Cities" EntityType="DBWEBAPIModel.City" />
+          <EntitySet Name="States" EntityType="DBWEBAPIModel.State" />
         </EntityContainer>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="CityName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StateId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="StateName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -40,9 +78,28 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="DBWEBAPIModel.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="imgpath" ColumnName="imgpath" />
+                <ScalarProperty Name="cityId" ColumnName="cityId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="DBWEBAPIModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="DBWEBAPIModel.State">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
