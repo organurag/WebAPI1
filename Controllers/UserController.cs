@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WebAPI1.Models;
+
 
 namespace WebAPI1.Controllers
 {
@@ -22,19 +22,14 @@ namespace WebAPI1.Controllers
             _IUserControllerBL = iuserControllerBL;
         }
 
-        //private DBWEBAPIEntities _context;
-
-        //public UserController()
-        //{
-        //    _context = new DBWEBAPIEntities();
-        //}
+        
 
 
         [HttpGet]
         public IHttpActionResult Index()
         {
 
-            //var user = _context.tblUsers.ToList();
+           
 
             List<tblUser> users = _IUserControllerBL.GetAllUsers();
 
@@ -45,8 +40,7 @@ namespace WebAPI1.Controllers
         public IHttpActionResult Create(tblUser user)
         {
 
-            //_context.tblUsers.Add(user);
-            //_context.SaveChanges();
+           
             _IUserControllerBL.CreateUser(user);
 
             return Ok("Created");
@@ -54,7 +48,7 @@ namespace WebAPI1.Controllers
 
         public IHttpActionResult GetUserID(int id)
         {
-            //tblUser user =  _context.tblUsers.Find(id);
+           
 
             tblUser user = _IUserControllerBL.FindUserById(id);
 
@@ -66,13 +60,7 @@ namespace WebAPI1.Controllers
         {
             if(id == user.Id)
             {
-                //tblUser _user = _context.tblUsers.Find(user.Id);
-
-                //_user.Name = user.Name;
-                //_user.email = user.email;
-                //_user.cityId = user.cityId;
-
-                //_context.SaveChanges();
+                
 
                 _IUserControllerBL.UpdateUser(user);
 
@@ -89,10 +77,7 @@ namespace WebAPI1.Controllers
         [HttpDelete]
         public IHttpActionResult DeleteUser(int id)
         {
-            //tblUser _user = _context.tblUsers.Find(id);
-            //_context.tblUsers.Remove(_user);
-            //_context.SaveChanges();
-
+           
             _IUserControllerBL.DeleteUser(id);
 
             return Ok("Deleted");

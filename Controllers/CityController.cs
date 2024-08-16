@@ -1,35 +1,41 @@
-﻿using System;
+﻿using BLL.CityController;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WebAPI1.Models;
+
 
 namespace WebAPI1.Controllers
 {
     public class CityController : ApiController
     {
-        private DBWEBAPIEntities _dbcontex;
-        public CityController() 
+        private readonly ICityControllerBL _cityControllerBL;
+
+        
+        public CityController(ICityControllerBL cityControllerBL) 
         {
-            _dbcontex = new DBWEBAPIEntities();
+            
+            _cityControllerBL = cityControllerBL;
         }
         
         
         [HttpGet]
         public IHttpActionResult GetCityByState(int id)
         {
-           List<City> cities;
-            cities = _dbcontex.Cities.Where(c => c.StateId == id).ToList();
+           
+
+             var cities = _cityControllerBL.GetCityByState(id);
 
             return Ok(cities);
         }
 
         public IHttpActionResult GetAllCities()
         {
-            List<City> cities;
-            cities = _dbcontex.Cities.ToList();
+            
+
+            var cities = _cityControllerBL.GetAllCities();
 
             return Ok(cities);
         }

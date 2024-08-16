@@ -1,25 +1,29 @@
-﻿using System;
+﻿using BLL.StateController;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WebAPI1.Models;
+
 
 namespace WebAPI1.Controllers
 {
     public class StateController : ApiController
     {
-        private readonly DBWEBAPIEntities _dbcontex;
-        public StateController()
+       
+
+        private readonly IStateControlleBL _stateControllerBL;
+        public StateController(IStateControlleBL stateControlleBL)
         {
-            _dbcontex = new DBWEBAPIEntities();
+            _stateControllerBL = stateControlleBL;
         }
 
         public IHttpActionResult GetStates()
         {
-            List<State> states;
-            states = _dbcontex.States.ToList();
+            
+           
+           var states = _stateControllerBL.GetAllStates();
             return Ok(states);
         }
     }

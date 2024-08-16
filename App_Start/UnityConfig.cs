@@ -1,6 +1,13 @@
+using BLL.CityController;
+using BLL.StateController;
+using BLL.UserController;
+using DAL.CityController;
+using DAL.StateController;
+using DAL.UserController;
 using System;
-
+using System.Web.Http;
 using Unity;
+using Unity.AspNet.WebApi;
 
 namespace WebAPI1
 {
@@ -36,12 +43,22 @@ namespace WebAPI1
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            // NOTE: To load from web.config uncomment the line below.
-            // Make sure to add a Unity.Configuration to the using statements.
-            // container.LoadConfiguration();
+            
+        }
+        public static void RegisterUnityContainer()
+        {
+            var container = new UnityContainer();
 
-            // TODO: Register your type's mappings here.
-            // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IUserControllerBL, UserControllerBL>();
+            container.RegisterType<IUserControllerDB, UserControllerDB>();
+
+            container.RegisterType<ICityControllerBL, CityControllerBL>();
+            container.RegisterType<ICityControllerDB, CityControllerDB>();
+
+            container.RegisterType<IStateControlleBL, StateControllerBL>();
+            container.RegisterType<IStateControllerDB, StateControllerDB>();
+
+            GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
 }
